@@ -11,6 +11,13 @@ buttons.forEach((button) => {
         playRound(button.id);
     });
 });
+
+// resetScore => wins = 0; 
+function resetScore() {
+    wins = 0;
+    losses = 0;
+}
+
 function playerPlay(p) {
     const play = moves[p];
     return play;
@@ -73,19 +80,40 @@ function playRound(p) {
             break;
         case 'end':
             console.log("Ending game");
-            j = 5;
+            j = 5; // Legacy from when game was 5 rounds early, would set counter to 5 to end loop.
+            // resetScore => wins = 0;
+            resetScore();
             break;
         default:
             console.log('Invalid Input');
-            j = -1;
+            j = -1; // Legacy from when game was played in console.
             break;
         }
         tallyScore();
 }
 function tallyScore(){
-    const counter = document.getElementById('counter');
-    counter.textContent = wins;
+    const win = document.getElementById('wins');
+    win.textContent = wins;
+    const lose = document.getElementById('losses');
+    lose.textContent = losses;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Legacy stuff from when we where playing 5 rounds only.
