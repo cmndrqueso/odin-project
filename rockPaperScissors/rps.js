@@ -4,26 +4,26 @@ let j = 0;
 let moves = ["Rock", "Paper", "Scissors", "end" ];
 let wins = 0;
 let losses = 0;
-function playerPlay() {
-    const i = prompt('Input number for choice: Rock [0], Paper [1], Scissors [2], End game [3]');
-    return moves[i];
+
+const buttons = document.querySelectorAll('.btn');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        playRound(button.id);
+    });
+});
+function playerPlay(p) {
+    const play = moves[p];
+    return play;
+
 }
 function computerPlay() {
-   const i = Math.floor(Math.random() *3);
+   const i = Math.floor(Math.random() * 3);
    return moves[i];
 }
 
-// Win lose functions
-// function win(winTally) {
-//     winTally++;
-//     return winTally;
-// }
-// function loose() {
-//     looseTally++;
-//     return looseTally;
-// }
-
-function playRound(playerSelection, computerSelection) {   
+function playRound(p) {
+    playerSelection = playerPlay(p);
+    computerSelection = computerPlay();   
     let tie = "You tie! ";
     switch (playerSelection) {
         case 'Rock':
@@ -80,33 +80,35 @@ function playRound(playerSelection, computerSelection) {
             j = -1;
             break;
         }
+        tallyScore();
+}
+function tallyScore(){
+    const counter = document.getElementById('counter');
+    counter.textContent = wins;
+}
 
-}
-function game() {
-    let gameSelection ='';
-    wins = 0;
-    losses = 0;
-    for ( j = 0; j <5; j++) {        
-        //let playerSelection = playerPlay();
-        //let computerSelection = computerPlay();
-        playRound(playerPlay(),computerPlay());
-        
-    }
-    let winTally = wins;
-    let looseTally = losses;
-    if (winTally>looseTally) {
-        let gameCondition = "Player Wins! Score: " + winTally + " to " + looseTally;
-        console.log('GAME OVER!');
-        console.log(gameCondition);
-    }
-    else if (winTally<looseTally) {
-        let gameCondition = "Player Looses! Score: " + winTally + " to " + looseTally;
-        console.log('GAME OVER!');
-        console.log(gameCondition);
-    }
-    else {
-        console.log('GAME OVER!');
-        console.log("Tie! Score "+ winTally + " to " + looseTally);
-    }
-}
+
+// Legacy stuff from when we where playing 5 rounds only.
+// Keeping for reference for now.
+// function game() {
+//     let gameSelection ='';
+//     wins = 0;
+//     losses = 0;
+//     let winTally = wins;
+//     let looseTally = losses;
+//     if (winTally>looseTally) {
+//         let gameCondition = "Player Wins! Score: " + winTally + " to " + looseTally;
+//         console.log('GAME OVER!');
+//         console.log(gameCondition);
+//     }
+//     else if (winTally<looseTally) {
+//         let gameCondition = "Player Looses! Score: " + winTally + " to " + looseTally;
+//         console.log('GAME OVER!');
+//         console.log(gameCondition);
+//     }
+//     else {
+//         console.log('GAME OVER!');
+//         console.log("Tie! Score "+ winTally + " to " + looseTally);
+//     }
+// }
 
