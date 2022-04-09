@@ -4,6 +4,8 @@ let j = 0;
 let moves = ["Rock", "Paper", "Scissors", "end" ];
 let wins = 0;
 let losses = 0;
+const winMessage = "Player Wins! Score: " + wins + " to " + losses;
+const looseMessage = "Player Loses! Score: " + wins + " to " + losses;
 
 const buttons = document.querySelectorAll('.btn');
 buttons.forEach((button) => {
@@ -12,7 +14,15 @@ buttons.forEach((button) => {
     });
 });
 
-// resetScore => wins = 0; 
+// Attempted refactorying 
+// function winCondition() {
+//     const message = document.getElementById(message);
+//     message.textContent(winMessage);
+// }
+// function looseCondition() {
+//     const message = document.getElementById(message);
+// }
+
 function resetScore() {
     wins = 0;
     losses = 0;
@@ -83,60 +93,38 @@ function playRound(p) {
             j = 5; // Legacy from when game was 5 rounds early, would set counter to 5 to end loop.
             // resetScore => wins = 0;
             resetScore();
+
             break;
         default:
             console.log('Invalid Input');
             j = -1; // Legacy from when game was played in console.
             break;
         }
-        tallyScore();
+    tallyScore();
 }
+// Might be able to eliminate this entire function through arrow functions 
 function tallyScore(){
     const win = document.getElementById('wins');
-    win.textContent = wins;
     const lose = document.getElementById('losses');
-    lose.textContent = losses;
+
+    // From legacy, will display quirky message.
+    let gameCondition = "Wanna Play?";
+    let winTally = wins;
+    let looseTally = losses;
+    if (winTally>looseTally) {
+        gameCondition = "Player Wins! Score: " + winTally + " to " + looseTally;
+        console.log(gameCondition);
+    }
+    else if (winTally<looseTally) {
+        gameCondition = "Player Looses! Score: " + winTally + " to " + looseTally;
+        console.log(gameCondition);
+    }
+    else if (winTally === looseTally && winTally == 0) {
+        gameCondition = "Wanna Play?";
+    }
+    else {
+        gameCondition = "Tie! Score: " + winTally + " to " + looseTally;
+    }
+    const message =document.getElementById('message');
+    message.textContent = gameCondition;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Legacy stuff from when we where playing 5 rounds only.
-// Keeping for reference for now.
-// function game() {
-//     let gameSelection ='';
-//     wins = 0;
-//     losses = 0;
-//     let winTally = wins;
-//     let looseTally = losses;
-//     if (winTally>looseTally) {
-//         let gameCondition = "Player Wins! Score: " + winTally + " to " + looseTally;
-//         console.log('GAME OVER!');
-//         console.log(gameCondition);
-//     }
-//     else if (winTally<looseTally) {
-//         let gameCondition = "Player Looses! Score: " + winTally + " to " + looseTally;
-//         console.log('GAME OVER!');
-//         console.log(gameCondition);
-//     }
-//     else {
-//         console.log('GAME OVER!');
-//         console.log("Tie! Score "+ winTally + " to " + looseTally);
-//     }
-// }
-
