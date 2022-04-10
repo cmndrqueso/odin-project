@@ -1,0 +1,41 @@
+body {
+    background-color: #002b36;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    color: #839496;
+}
+
+.text{
+    color: #fdf6e3;
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#message{
+    margin: 50px;
+}
+
+#choices{
+    margin: 50px;
+}
+
+#endGame{
+    margin: 50px;
+}
+
+#counter{
+    margin: 50px;
+}
+
+/* CSS based on actions */
+
+#choices:hover{
+    color: #073642;
+}

@@ -1,90 +1,89 @@
-// This function will select between rock paper or scissors
-//
-let j = 0;
 let moves = ["Rock", "Paper", "Scissors", "end" ];
 let wins = 0;
 let losses = 0;
-const winMessage = "Player Wins! Score: " + wins + " to " + losses;
-const looseMessage = "Player Loses! Score: " + wins + " to " + losses;
+let score = wins + " to " + losses;
 
-const buttons = document.querySelectorAll('.btn');
-buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-        playRound(button.id);
-    });
-});
+const counter = document.getElementById('counter'); 
+counter.textContent = "Score: " + score;
 
-// Attempted refactorying 
-// function winCondition() {
-//     const message = document.getElementById(message);
-//     message.textContent(winMessage);
-// }
-// function looseCondition() {
-//     const message = document.getElementById(message);
-// }
+// Conditions wins, losses, tie.
+function win() {
+    wins++;
+    const winMessage = "Player Wins! Score: " + wins + " to " + losses;
+    console.log("Wins: " + wins);
+    return winMessage;
+}
+
+function lose(){
+    losses ++;
+    const looseMessage = "Player Loses! Score: " + wins + " to " + losses;
+    console.log("Losses: " + losses);
+    return looseMessage;
+}
+
+function tie(){
+    console.log("Tie")
+}
 
 function resetScore() {
     wins = 0;
     losses = 0;
 }
 
+
+
 function playerPlay(p) {
     const play = moves[p];
     return play;
 
 }
+
 function computerPlay() {
    const i = Math.floor(Math.random() * 3);
    return moves[i];
 }
 
 function playRound(p) {
+
     playerSelection = playerPlay(p);
     computerSelection = computerPlay();   
-    let tie = "You tie! ";
     switch (playerSelection) {
         case 'Rock':
             switch (computerSelection){
                 case 'Scissors':
-                    console.log("You Win! " + playerSelection + " beats " + computerSelection);
-                    wins++;
+                    win(playerSelection, computerSelection);
                     break;
                 case 'Paper':
-                    console.log("You Lose! " + computerSelection + " beats " + playerSelection);
-                    losses++;
+                    lose(playerSelection, computerSelection);
                     break;
                 case 'Rock':
-                    console.log(tie);
+                    tie();
                     break;
             }
             break;
         case 'Scissors':
             switch (computerSelection){
                 case 'Paper':
-                    console.log("You Win! " + playerSelection + " beats " + computerSelection);
-                    wins++;
+                    win();
                     break;
                 case 'Rock':
-                    console.log("You Lose! " + computerSelection + " beats " + playerSelection);
-                    losses++; 
+                    lose();
                     break;
                 case 'Scissors':
-                    console.log(tie);
+                    tie();
                     break;
             }
             break;
         case 'Paper':
             switch (computerSelection){
                 case 'Rock':
-                    console.log("You Win! " + playerSelection + " beats " + computerSelection);
-                    wins++;
+                    win();
                     break;
                 case 'Scissors':
-                    console.log("You Lose! " + computerSelection + " beats " + playerSelection);
-                    losses++; 
+                    lose(); 
                     break;
                 case 'Paper':
-                    console.log(tie);
+                    tie();
                     break;
             }
             break;
@@ -102,29 +101,17 @@ function playRound(p) {
         }
     tallyScore();
 }
+
+
 // Might be able to eliminate this entire function through arrow functions 
 function tallyScore(){
-    const win = document.getElementById('wins');
-    const lose = document.getElementById('losses');
-
-    // From legacy, will display quirky message.
-    let gameCondition = "Wanna Play?";
-    let winTally = wins;
-    let looseTally = losses;
-    if (winTally>looseTally) {
-        gameCondition = "Player Wins! Score: " + winTally + " to " + looseTally;
-        console.log(gameCondition);
-    }
-    else if (winTally<looseTally) {
-        gameCondition = "Player Looses! Score: " + winTally + " to " + looseTally;
-        console.log(gameCondition);
-    }
-    else if (winTally === looseTally && winTally == 0) {
-        gameCondition = "Wanna Play?";
-    }
-    else {
-        gameCondition = "Tie! Score: " + winTally + " to " + looseTally;
-    }
-    const message =document.getElementById('message');
-    message.textContent = gameCondition;
+    const counter =document.getElementById('counter');
+    counter.textContent = score;
 }
+
+const buttons = document.querySelectorAll('.btn');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        playRound(button.id);
+    });
+});
