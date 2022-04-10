@@ -1,10 +1,6 @@
 let moves = ["Rock", "Paper", "Scissors", "end" ];
 let wins = 0;
 let losses = 0;
-let score = wins + " to " + losses;
-
-const counter = document.getElementById('counter'); 
-counter.textContent = "Score: " + score;
 
 // Conditions wins, losses, tie.
 function win() {
@@ -21,6 +17,10 @@ function lose(){
     return looseMessage;
 }
 
+function tallyScore(){
+
+}
+
 function tie(){
     console.log("Tie")
 }
@@ -31,18 +31,18 @@ function resetScore() {
 }
 
 
-
+//  These functions are responsible for the moves.
 function playerPlay(p) {
     const play = moves[p];
     return play;
 
 }
-
 function computerPlay() {
    const i = Math.floor(Math.random() * 3);
    return moves[i];
 }
 
+// This function contains the game logic
 function playRound(p) {
 
     playerSelection = playerPlay(p);
@@ -51,10 +51,10 @@ function playRound(p) {
         case 'Rock':
             switch (computerSelection){
                 case 'Scissors':
-                    win(playerSelection, computerSelection);
+                    wins++;
                     break;
                 case 'Paper':
-                    lose(playerSelection, computerSelection);
+                    losses++;
                     break;
                 case 'Rock':
                     tie();
@@ -64,10 +64,10 @@ function playRound(p) {
         case 'Scissors':
             switch (computerSelection){
                 case 'Paper':
-                    win();
+                    wins++;
                     break;
                 case 'Rock':
-                    lose();
+                    losses++;
                     break;
                 case 'Scissors':
                     tie();
@@ -77,10 +77,10 @@ function playRound(p) {
         case 'Paper':
             switch (computerSelection){
                 case 'Rock':
-                    win();
+                    wins++;
                     break;
                 case 'Scissors':
-                    lose(); 
+                    losses++; 
                     break;
                 case 'Paper':
                     tie();
@@ -102,11 +102,10 @@ function playRound(p) {
     tallyScore();
 }
 
-
-// Might be able to eliminate this entire function through arrow functions 
+// This updates the score at the bottom of the screen.
 function tallyScore(){
-    const counter =document.getElementById('counter');
-    counter.textContent = score;
+    const counter = document.getElementById('counter'); 
+    counter.textContent = "Score: " + wins + " to " + losses;
 }
 
 const buttons = document.querySelectorAll('.btn');
