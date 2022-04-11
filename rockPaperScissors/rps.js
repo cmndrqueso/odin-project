@@ -44,7 +44,10 @@ function computerPlay() {
 
 // This function contains the game logic
 function playRound(p) {
-
+    if(wins == 5 || losses == 5){
+        wins = 0;
+        losses = 0;
+    }
     playerSelection = playerPlay(p);
     computerSelection = computerPlay();   
     switch (playerSelection) {
@@ -104,8 +107,23 @@ function playRound(p) {
 
 // This updates the score at the bottom of the screen.
 function tallyScore(){
+    let message = '';
+
+    if (wins > 5 || losses > 5){
+        resetScore();
+        message = '';
+    }
+    else if (wins == 5 ) {
+        message = 'Player wins!'
+    }
+    else if (losses == 5 ){
+        message = 'Player losses!'
+    }
+    
     const counter = document.getElementById('counter'); 
     counter.textContent = "Score: " + wins + " to " + losses;
+    const result = document.getElementById('result');
+    result.textContent = message
 }
 
 const buttons = document.querySelectorAll('.btn');
